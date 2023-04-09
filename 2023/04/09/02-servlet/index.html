@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.18.5">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>02-servlet - XZY_SUNSHINE</title>
+
+  
+    <meta name="description" content="servlet简介 servlet是sun公司开发动态web的一门技术  sun公司在这些API提供一个接口叫做servlet，如果你想完成一个servlet应用程序，只需两个步骤  编写一个类，实现servlet接口  把开发好的java类部署到web服务器中   基本原理示意图 mapping一个servlet可以指定一个或多个映射路径 一个servlet可指定一些后缀或者前缀 制定了固有的映">
+<meta property="og:type" content="article">
+<meta property="og:title" content="02-servlet">
+<meta property="og:url" content="http://xzysunshine.eu.org/2023/04/09/02-servlet/">
+<meta property="og:site_name" content="XZY_SUNSHINE">
+<meta property="og:description" content="servlet简介 servlet是sun公司开发动态web的一门技术  sun公司在这些API提供一个接口叫做servlet，如果你想完成一个servlet应用程序，只需两个步骤  编写一个类，实现servlet接口  把开发好的java类部署到web服务器中   基本原理示意图 mapping一个servlet可以指定一个或多个映射路径 一个servlet可指定一些后缀或者前缀 制定了固有的映">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xzysunshine.eu.org/2023/04/09/02-servlet/image-20230227093514948.png">
+<meta property="og:image" content="http://xzysunshine.eu.org/2023/04/09/02-servlet/image-20230227100559239.png">
+<meta property="og:image" content="http://xzysunshine.eu.org/2023/04/09/02-servlet/image-20230227141613165.png">
+<meta property="og:image" content="http://xzysunshine.eu.org/2023/04/09/02-servlet/image-20230227204923871.png">
+<meta property="og:image" content="http://xzysunshine.eu.org/2023/04/09/02-servlet/image-20230306131101299.png">
+<meta property="og:image" content="http://xzysunshine.eu.org/2023/04/09/02-servlet/image-20230306131542367.png">
+<meta property="article:published_time" content="2023-04-09T09:09:37.000Z">
+<meta property="article:modified_time" content="2023-04-09T09:22:05.119Z">
+<meta property="article:author" content="XZY">
+<meta property="article:tag" content="java-web">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://xzysunshine.eu.org/2023/04/09/02-servlet/image-20230227093514948.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+
+
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main" ff="title">XZY_SUNSHINE</div></a></div>
+
+<nav class="menu dis-select"></nav>
+</header>
+
+
+<div class="widgets">
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">02-servlet</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E6%84%8F%E5%9B%BE"><span class="toc-text">示意图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mapping"><span class="toc-text">mapping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#servlet-context"><span class="toc-text">servlet context</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE"><span class="toc-text">共享数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E6%84%8F%E5%9B%BE-1"><span class="toc-text">示意图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8F%82%E6%95%B0"><span class="toc-text">获取初始化参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%A0%81"><span class="toc-text">配置代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91"><span class="toc-text">请求转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6"><span class="toc-text">读取资源文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E7%A7%8D%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">四种功能代码实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HttpServletResponse"><span class="toc-text">HttpServletResponse</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-text">分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%91%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">向浏览器发送数据的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%91%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%91%E9%80%81%E5%93%8D%E5%BA%94%E5%A4%B4%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">向浏览器发送响应头的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E7%9A%84%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-text">响应的状态码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8"><span class="toc-text">常见应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%91%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%87%BA%E4%BF%A1%E6%81%AF"><span class="toc-text">向浏览器输出信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6"><span class="toc-text">下载文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E7%A0%81%E5%8A%9F%E8%83%BD"><span class="toc-text">验证码功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">实现重定向</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HttpServletRequest"><span class="toc-text">HttpServletRequest</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%89%8D%E7%AB%AF%E4%BC%A0%E9%80%92%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-text">获取前端传递的参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91-1"><span class="toc-text">请求转发</span></a></li></ol></li></ol></div></div></widget>
+
+
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div><div id="post-meta">发布于&nbsp;<time datetime="2023-04-09T09:09:37.000Z">2023-04-09</time></div></div>
+
+<article class='md-text content post'>
+<h1 class="article-title"><span>02-servlet</span></h1>
+<h1 id="servlet"><a href="#servlet" class="headerlink" title="servlet"></a>servlet</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li><p>servlet是sun公司开发动态web的一门技术</p>
+</li>
+<li><p>sun公司在这些API提供一个接口叫做servlet，如果你想完成一个servlet应用程序，只需两个步骤</p>
+</li>
+<li><p>编写一个类，实现servlet接口</p>
+</li>
+<li><p>把开发好的java类部署到web服务器中</p>
+</li>
+</ul>
+<h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><h3 id="示意图"><a href="#示意图" class="headerlink" title="示意图"></a>示意图</h3><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2023/04/09/02-servlet/image-20230227093514948.png" alt="image-20230227093514948"></p>
+<h2 id="mapping"><a href="#mapping" class="headerlink" title="mapping"></a>mapping</h2><p>一个servlet可以指定一个或多个映射路径</p>
+<p>一个servlet可指定一些后缀或者前缀</p>
+<p>制定了固有的映射路径优先级最高，如果找不到就会走默认的请求路径。</p>
+<h2 id="servlet-context"><a href="#servlet-context" class="headerlink" title="servlet context"></a>servlet context</h2><p>web容器在启动的时候，它会为每个web程序都创建一个servletcontext对象，它代表了当前的web应用。</p>
+<h3 id="共享数据"><a href="#共享数据" class="headerlink" title="共享数据"></a>共享数据</h3><p>我在这个servlet保存的数据可以在另外一个servlet中拿到</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//servlet01</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">servlet_context_01</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        doGet(req,resp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        String username=<span class="string">&quot;阳光开朗大男孩&quot;</span>;</span><br><span class="line">        ServletContext context=<span class="built_in">this</span>.getServletContext();</span><br><span class="line">        context.setAttribute(<span class="string">&quot;username&quot;</span>,username);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="示意图-1"><a href="#示意图-1" class="headerlink" title="示意图"></a>示意图</h4><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2023/04/09/02-servlet/image-20230227100559239.png" alt="image-20230227100559239"></p>
+<h3 id="获取初始化参数"><a href="#获取初始化参数" class="headerlink" title="获取初始化参数"></a>获取初始化参数</h3><h4 id="配置代码"><a href="#配置代码" class="headerlink" title="配置代码"></a>配置代码</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>url<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>jdbc:mysql://localhost:3306?mybatis<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="请求转发"><a href="#请求转发" class="headerlink" title="请求转发"></a>请求转发</h3><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2023/04/09/02-servlet/image-20230227141613165.png" alt="image-20230227141613165"></p>
+<h3 id="读取资源文件"><a href="#读取资源文件" class="headerlink" title="读取资源文件"></a>读取资源文件</h3><p>properties</p>
+<ul>
+<li>在Java目录下，新建properties</li>
+<li>在resources目录下新建properties</li>
+</ul>
+<p>发现，都被打包到了同一个路径下：classes，我们俗称这个路径为classpath</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//xml配置文件</span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>true<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>true<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="四种功能代码实现"><a href="#四种功能代码实现" class="headerlink" title="四种功能代码实现"></a>四种功能代码实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.XZY_SUNSHINE.context;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletContext;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">servlet_context_02</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="type">ServletContext</span> <span class="variable">servletContext</span> <span class="operator">=</span> <span class="built_in">this</span>.getServletContext();</span><br><span class="line"><span class="comment">//        String username=(String)(servletContext.getAttribute(&quot;username&quot;));</span></span><br><span class="line"><span class="comment">//        String url=servletContext.getInitParameter(&quot;url&quot;);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        resp.getWriter().println(username);//共享数据</span></span><br><span class="line"><span class="comment">//        resp.getWriter().println(url);//获取初始化参数</span></span><br><span class="line"><span class="comment">//        try &#123;</span></span><br><span class="line"><span class="comment">//            Thread.sleep(1000);</span></span><br><span class="line"><span class="comment">//        &#125; catch (InterruptedException e) &#123;</span></span><br><span class="line"><span class="comment">//            e.printStackTrace();</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        //请求转发</span></span><br><span class="line"><span class="comment">//        servletContext.getRequestDispatcher(&quot;/&quot;).forward(req,resp);</span></span><br><span class="line">        <span class="comment">//读取资源文件</span></span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">resourceAsStream</span> <span class="operator">=</span> servletContext.getResourceAsStream(<span class="string">&quot;/WEB-INF/classes/com/XZY_SUNSHINE/context/a.properties&quot;</span>);</span><br><span class="line">        <span class="type">Properties</span> <span class="variable">properties</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">        properties.load(resourceAsStream);</span><br><span class="line">        <span class="type">String</span> <span class="variable">username1</span> <span class="operator">=</span> properties.getProperty(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        System.out.println(username1);</span><br><span class="line">        resp.getWriter().println(username1);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        doGet(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="HttpServletResponse"><a href="#HttpServletResponse" class="headerlink" title="HttpServletResponse"></a>HttpServletResponse</h2><p>web服务器接收到客户端的http请求，针对这个请求，分别创建一个代表请求的HttpServletRequest对象，代表响应的一个HttpServletResponse</p>
+<ul>
+<li>如果要获取客户端请求过来的参数:找HttpServletRequest</li>
+<li>如果要给客户端响应一些信息：找HttpServletResponse</li>
+</ul>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><h4 id="向浏览器发送数据的方法"><a href="#向浏览器发送数据的方法" class="headerlink" title="向浏览器发送数据的方法"></a>向浏览器发送数据的方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ServletOutputStream <span class="title function_">getOutputStream</span><span class="params">()</span> <span class="keyword">throws</span> IOException;</span><br><span class="line">PrintWriter <span class="title function_">getWriter</span><span class="params">()</span> <span class="keyword">throws</span> IOException;</span><br></pre></td></tr></table></figure>
+
+<h4 id="向浏览器发送响应头的方法"><a href="#向浏览器发送响应头的方法" class="headerlink" title="向浏览器发送响应头的方法"></a>向浏览器发送响应头的方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">setDateHeader</span><span class="params">(String var1, <span class="type">long</span> var2)</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">addDateHeader</span><span class="params">(String var1, <span class="type">long</span> var2)</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setHeader</span><span class="params">(String var1, String var2)</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">addHeader</span><span class="params">(String var1, String var2)</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">setIntHeader</span><span class="params">(String var1, <span class="type">int</span> var2)</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">addIntHeader</span><span class="params">(String var1, <span class="type">int</span> var2)</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="响应的状态码"><a href="#响应的状态码" class="headerlink" title="响应的状态码"></a>响应的状态码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">SC_CONTINUE</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_SWITCHING_PROTOCOLS</span> <span class="operator">=</span> <span class="number">101</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_OK</span> <span class="operator">=</span> <span class="number">200</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_CREATED</span> <span class="operator">=</span> <span class="number">201</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_ACCEPTED</span> <span class="operator">=</span> <span class="number">202</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_NON_AUTHORITATIVE_INFORMATION</span> <span class="operator">=</span> <span class="number">203</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_NO_CONTENT</span> <span class="operator">=</span> <span class="number">204</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_RESET_CONTENT</span> <span class="operator">=</span> <span class="number">205</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_PARTIAL_CONTENT</span> <span class="operator">=</span> <span class="number">206</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_MULTIPLE_CHOICES</span> <span class="operator">=</span> <span class="number">300</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_MOVED_PERMANENTLY</span> <span class="operator">=</span> <span class="number">301</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_MOVED_TEMPORARILY</span> <span class="operator">=</span> <span class="number">302</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_FOUND</span> <span class="operator">=</span> <span class="number">302</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_SEE_OTHER</span> <span class="operator">=</span> <span class="number">303</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_NOT_MODIFIED</span> <span class="operator">=</span> <span class="number">304</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_USE_PROXY</span> <span class="operator">=</span> <span class="number">305</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_TEMPORARY_REDIRECT</span> <span class="operator">=</span> <span class="number">307</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_BAD_REQUEST</span> <span class="operator">=</span> <span class="number">400</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_UNAUTHORIZED</span> <span class="operator">=</span> <span class="number">401</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_PAYMENT_REQUIRED</span> <span class="operator">=</span> <span class="number">402</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_FORBIDDEN</span> <span class="operator">=</span> <span class="number">403</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_NOT_FOUND</span> <span class="operator">=</span> <span class="number">404</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_METHOD_NOT_ALLOWED</span> <span class="operator">=</span> <span class="number">405</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_NOT_ACCEPTABLE</span> <span class="operator">=</span> <span class="number">406</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_PROXY_AUTHENTICATION_REQUIRED</span> <span class="operator">=</span> <span class="number">407</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_REQUEST_TIMEOUT</span> <span class="operator">=</span> <span class="number">408</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_CONFLICT</span> <span class="operator">=</span> <span class="number">409</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_GONE</span> <span class="operator">=</span> <span class="number">410</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_LENGTH_REQUIRED</span> <span class="operator">=</span> <span class="number">411</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_PRECONDITION_FAILED</span> <span class="operator">=</span> <span class="number">412</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_REQUEST_ENTITY_TOO_LARGE</span> <span class="operator">=</span> <span class="number">413</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_REQUEST_URI_TOO_LONG</span> <span class="operator">=</span> <span class="number">414</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_UNSUPPORTED_MEDIA_TYPE</span> <span class="operator">=</span> <span class="number">415</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_REQUESTED_RANGE_NOT_SATISFIABLE</span> <span class="operator">=</span> <span class="number">416</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_EXPECTATION_FAILED</span> <span class="operator">=</span> <span class="number">417</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_INTERNAL_SERVER_ERROR</span> <span class="operator">=</span> <span class="number">500</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_NOT_IMPLEMENTED</span> <span class="operator">=</span> <span class="number">501</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_BAD_GATEWAY</span> <span class="operator">=</span> <span class="number">502</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_SERVICE_UNAVAILABLE</span> <span class="operator">=</span> <span class="number">503</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_GATEWAY_TIMEOUT</span> <span class="operator">=</span> <span class="number">504</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">SC_HTTP_VERSION_NOT_SUPPORTED</span> <span class="operator">=</span> <span class="number">505</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="常见应用"><a href="#常见应用" class="headerlink" title="常见应用"></a>常见应用</h3><h4 id="向浏览器输出信息"><a href="#向浏览器输出信息" class="headerlink" title="向浏览器输出信息"></a>向浏览器输出信息</h4><h4 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h4><ol>
+<li>要获取下载文件的路径</li>
+<li>获取下载的文件名</li>
+<li>设置浏览器能够支持我们下载的东西</li>
+<li>获取下载文件的输入流</li>
+<li>创建缓冲区</li>
+<li>获取outputsream对象</li>
+<li>将fileinputstream流写入到buffer缓冲区，使用outputstream将缓冲区的数据输出到客户端</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">//获取文件路径</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">realPath</span> <span class="operator">=</span> <span class="string">&quot;E:\\自学路线\\代码\\com.XZY_SUNSHINE\\servlet_context_demo2\\src\\main\\resources\\ASCII码对照表.png&quot;</span>;</span><br><span class="line">        System.out.println(realPath);</span><br><span class="line"><span class="comment">//        E:\自学路线\代码\com.XZY_SUNSHINE\servlet_context_demo2\src\main\resources\ASCII码对照表.png</span></span><br><span class="line">        <span class="comment">//获取文件名</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">FileName</span> <span class="operator">=</span> realPath.substring(realPath.lastIndexOf(<span class="string">&quot;\\&quot;</span>) + <span class="number">1</span>);</span><br><span class="line">        <span class="comment">//设置想办法让浏览器能够支持下载我们需要的东西</span></span><br><span class="line">        System.out.println(FileName);</span><br><span class="line">        resp.setHeader(<span class="string">&quot;Content-disposition&quot;</span>,<span class="string">&quot;attachment;filename=&quot;</span>+ URLEncoder.encode(FileName,<span class="string">&quot;utf-8&quot;</span>));</span><br><span class="line">        <span class="comment">//获取文件的输入流</span></span><br><span class="line">        <span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(realPath);</span><br><span class="line">        <span class="comment">//创建缓冲区</span></span><br><span class="line">        <span class="type">int</span> length=<span class="number">0</span>;</span><br><span class="line">        <span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="comment">//获取输出流对象</span></span><br><span class="line">        <span class="type">ServletOutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> resp.getOutputStream();</span><br><span class="line">        <span class="comment">//下载文件</span></span><br><span class="line">        <span class="keyword">while</span>((length=fileInputStream.read(bytes))&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            outputStream.write(bytes,<span class="number">0</span>,length);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//关闭资源</span></span><br><span class="line">        fileInputStream.close();</span><br><span class="line">        outputStream.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="验证码功能"><a href="#验证码功能" class="headerlink" title="验证码功能"></a>验证码功能</h4><ol>
+<li>让浏览器自动刷新。</li>
+<li>写一个生成验证码的函数</li>
+<li>画图</li>
+<li>告诉浏览器用图片的方式打开</li>
+<li>设置参数使得浏览器无法缓存</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        <span class="comment">//让浏览器五秒刷新一次</span></span><br><span class="line">        resp.setHeader(<span class="string">&quot;refresh&quot;</span>,<span class="string">&quot;5&quot;</span>);</span><br><span class="line">        <span class="comment">//在内存创建一个图片</span></span><br><span class="line">        <span class="type">BufferedImage</span> <span class="variable">bufferedImage</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedImage</span>(<span class="number">200</span>,<span class="number">100</span>,BufferedImage.TYPE_INT_RGB);</span><br><span class="line">        <span class="comment">//得到画笔</span></span><br><span class="line">        <span class="type">Graphics2D</span> <span class="variable">graphics</span> <span class="operator">=</span>(Graphics2D) bufferedImage.getGraphics();</span><br><span class="line">        graphics.setColor(Color.white);</span><br><span class="line">        graphics.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">200</span>,<span class="number">100</span>);</span><br><span class="line">        <span class="comment">//生成随机数</span></span><br><span class="line">        String nums=get_nums();</span><br><span class="line">        <span class="comment">//将随机数画在画板上</span></span><br><span class="line">        graphics.setColor(Color.BLUE);</span><br><span class="line">        graphics.drawString(nums,<span class="number">100</span>,<span class="number">50</span>);</span><br><span class="line">        <span class="comment">//告诉浏览器，图片的方式打开</span></span><br><span class="line">        resp.setContentType(<span class="string">&quot;image/png&quot;</span>);</span><br><span class="line">        <span class="comment">//设置为不缓存</span></span><br><span class="line">        resp.setDateHeader(<span class="string">&quot;expires&quot;</span>,-<span class="number">1</span>);</span><br><span class="line">        resp.setHeader(<span class="string">&quot;Cache-Control&quot;</span>,<span class="string">&quot;no-cache&quot;</span>);</span><br><span class="line">        resp.setHeader(<span class="string">&quot;Pragma&quot;</span>,<span class="string">&quot;no-cache&quot;</span>);</span><br><span class="line"><span class="comment">//        把图片写给浏览器</span></span><br><span class="line">        ImageIO.write(bufferedImage,<span class="string">&quot;png&quot;</span>,resp.getOutputStream());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">get_nums</span><span class="params">()</span>&#123;</span><br><span class="line">        String nums=<span class="literal">null</span>;</span><br><span class="line">        <span class="type">Random</span> <span class="variable">random</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">        nums = random.nextInt(<span class="number">99999</span>)+<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="type">StringBuffer</span> <span class="variable">stringBuffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5</span>-nums.length(); i++) &#123;</span><br><span class="line">            stringBuffer.append(i);</span><br><span class="line">        &#125;</span><br><span class="line">        nums=nums+stringBuffer.toString();</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="实现重定向"><a href="#实现重定向" class="headerlink" title="实现重定向"></a>实现重定向</h4><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2023/04/09/02-servlet/image-20230227204923871.png" alt="image-20230227204923871"></p>
+<p>一个web资源收到客户端请求后，他会通知客户端去访问另一个web资源，这个过程叫做重定向。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line"><span class="comment">//        resp.sendRedirect(&quot;/s2/get_image&quot;);</span></span><br><span class="line">        resp.setHeader(<span class="string">&quot;location&quot;</span>,<span class="string">&quot;/s2/get_image&quot;</span>);</span><br><span class="line">        resp.setStatus(<span class="number">302</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>重定向和转发的区别：</p>
+<p>相同点：页面都会实现跳转</p>
+<p>不同点：请求转发的时候，url不会发生变化。重定向url会发生变化</p>
+<h2 id="HttpServletRequest"><a href="#HttpServletRequest" class="headerlink" title="HttpServletRequest"></a>HttpServletRequest</h2><p>HttpServletRequest代表客户端的请求，用户通过http协议访问服务器，http请求中的所有的信息会被封装到HttpServletRequest</p>
+<h3 id="获取前端传递的参数"><a href="#获取前端传递的参数" class="headerlink" title="获取前端传递的参数"></a>获取前端传递的参数</h3><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2023/04/09/02-servlet/image-20230306131101299.png" alt="image-20230306131101299"></p>
+<h3 id="请求转发-1"><a href="#请求转发-1" class="headerlink" title="请求转发"></a>请求转发</h3><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/2023/04/09/02-servlet/image-20230306131542367.png" alt="image-20230306131542367"></p>
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2023/04/09/03-cookie%E3%80%81session/">03-cookie、session</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2023/04/09/git/">git</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"></div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.18.5';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.18.5';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+<!-- hexo injector body_end start -->
+  <style>
+    .highlight {
+      position: relative;
+    }
+    .highlight .code .copy-btn{
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 4px 0.5rem;
+      opacity: 0.25;
+      font-weight: 700;
+      color: var(--theme);
+      cursor: pointer;
+      transination: opacity 0.3s;
+    }
+    .highlight .code .copy-btn:hover{
+      color: var(--text-code);
+      opacity: 0.75;
+    }
+    .highlight .code .copy-btn.success {
+      color: var(--swiper-theme-color);
+      opacity: 0.75;
+
+    }
+    
+  </style>
+  <script>
+    const codeElementArr = document.querySelectorAll('.code')
+    codeElementArr.forEach(code => {
+      const codeBeforeWidth = window.getComputedStyle(code, '::before').width.split('px')[0]
+      const codeBeforePadding = window.getComputedStyle(code, '::before').padding.split(' ').pop().split('px')[0]
+  
+      // copy btn 
+      const codeCopyBtn = document.createElement('div')
+      codeCopyBtn.classList.add('copy-btn')
+      codeCopyBtn.style.right = Number(codeBeforeWidth) + Number(codeBeforePadding) * 2 + 'px'
+      codeCopyBtn.innerText = '复制代码'
+      code.appendChild(codeCopyBtn)
+  
+      codeCopyBtn.addEventListener('click', async () => {
+        const currentCodeElement = code.children[0]?.innerText
+        await copyCode(currentCodeElement)
+
+
+        codeCopyBtn.innerText = '复制成功'
+        codeCopyBtn.classList.add('success')
+
+        setTimeout(() => {
+          codeCopyBtn.innerText = '复制代码'
+          codeCopyBtn.classList.remove('success')
+        },1000)
+      })
+    })
+    
+    async function copyCode(currentCode) {
+      console.log(currentCode)
+      console.log('复制代码')
+      if (navigator.clipboard) {
+        try {
+          await navigator.clipboard.writeText(currentCode)
+        } catch (error) {
+          // 未获得用户许可
+          console.error(error)
+        }
+      } else {
+        console.error('当前浏览器不支持此api')
+      }
+    }
+  </script>
+  <!-- hexo injector body_end end --></body>
+</html>
